@@ -1,15 +1,17 @@
-import { TransactionDTO } from "src/application/dto/transactions.dto";
-import { TransactionRepository } from "src/application/interfaces/transaction-repository.interface";
-import { Transaction } from "src/domain/entities/transaction.entity";
+import { Injectable } from '@nestjs/common';
+import { TransactionDTO } from "../../dto/transactions.dto";
+import { Transaction } from "../../../domain/entities/transaction.entity";
+import { TransactionService } from "../../../domain/services/transaction.service";
 
-
-
+@Injectable()
 export class CreateTransactionUseCase {
 
-    constructor(private readonly TransactionRepository: TransactionRepository) {}
+    constructor(
+        private readonly transactionService: TransactionService,
+    ) {}
 
-    public execute(dto: TransactionDTO): void {
-        const transaction = new Transaction(dto.valor, dto.dataHora);
-        this.TransactionRepository.save(transaction);
+    public execute(dto: TransactionDTO): Transaction {
+        const transaction = new Transaction(dto.valor, new Date(dto.dataHora));
+        return this.transactionService.createTransaction(transaction);
     }
 }

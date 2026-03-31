@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { TransactionRepository } from 'src/application/interfaces/transaction-repository.interface';
-import { Transaction } from 'src/domain/entities/transaction.entity';
+import { TransactionRepository } from '../../application/interfaces/transaction-repository.interface';
+import { Transaction } from '../../domain/entities/transaction.entity';
 
 
 @Injectable()

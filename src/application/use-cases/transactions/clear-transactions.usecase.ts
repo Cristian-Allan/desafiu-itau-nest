@@ -1,10 +1,14 @@
-import { TransactionRepository } from "src/application/interfaces/transaction-repository.interface";
+import { Injectable } from '@nestjs/common';
+import { TransactionService } from "../../../domain/services/transaction.service";
 
+@Injectable()
 export class ClearTransactionsUseCase {
 
-    constructor(private readonly transactionRepository: TransactionRepository) {}
+    constructor(
+        private readonly transactionService: TransactionService,
+    ) {}
 
     public execute(): void {
-        this.transactionRepository.clear();
+        this.transactionService.clearTransactions();
     }
 }
