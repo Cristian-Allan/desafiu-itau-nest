@@ -1,3 +1,4 @@
+import { TransactionExceptions } from "../exceptions/transactions.exceptions";
 
 export class Transaction {
   private readonly valor: number;
@@ -13,13 +14,13 @@ export class Transaction {
 
   public validate(valor: number, dataHora: Date): void {
     if (valor <= 0) {
-      throw new Error('O valor da transação não pode ser negativo.');
+      throw TransactionExceptions.ERROR_INVALID_VALUE;
     }
 
     const now = new Date();
 
     if (dataHora.getTime() > now.getTime()) {
-      throw new Error('A data e hora da transação não podem estar no futuro.');
+      throw TransactionExceptions.ERROR_FUTURE_DATE;
     }
   }
 
