@@ -4,20 +4,21 @@ import { Transaction } from "../entities/transaction.entity";
 
 @Injectable()
 export class TransactionService {
+  constructor(
+    @Inject('TransactionRepository')
+    private readonly transactionRepository: TransactionRepository,
+  ) {}
 
-    constructor(@Inject('TransactionRepository') private readonly transactionRepository: TransactionRepository) {}
+  public createTransaction(transaction: Transaction): Transaction {
+    this.transactionRepository.save(transaction);
+    return transaction;
+  }
 
-    public createTransaction(transaction: Transaction): Transaction {
-        this.transactionRepository.save(transaction);
-        return transaction;
-    }
+  public getAllTransactions(): Transaction[] {
+    return this.transactionRepository.findAll();
+  }
 
-    public getAllTransactions(): Transaction[] {
-        return this.transactionRepository.findAll();
-    }
-
-    public clearTransactions(): void {
-        this.transactionRepository.clear();
-    }
-
+  public clearTransactions(): void {
+    this.transactionRepository.clear();
+  }
 }
